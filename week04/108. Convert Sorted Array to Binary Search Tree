@@ -1,0 +1,34 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     public int val;
+ *     public TreeNode left;
+ *     public TreeNode right;
+ *     public TreeNode(int val=0, TreeNode left=null, TreeNode right=null) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+public class Solution {
+    public TreeNode SortedArrayToBST(int[] nums) {
+        var bst = ConvertArrayToBST(nums, 0, nums.Length - 1);
+        return bst;
+    }
+
+    public TreeNode ConvertArrayToBST(int[] nums, int left, int right) {
+        if(nums == null || nums.Length < 1) return null;
+        if(left > right) return null;
+
+        int mid = (left + right)/2;
+        var treeNode = new TreeNode (nums[mid]);
+        var leftTree = ConvertArrayToBST(nums, left, mid - 1);
+        var rightTree = ConvertArrayToBST(nums, mid +1, right);
+
+        treeNode.left = leftTree;
+        treeNode.right = rightTree;
+
+        return treeNode;
+    }
+}
